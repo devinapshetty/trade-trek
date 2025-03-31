@@ -1,10 +1,12 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [countryId, setCountryId] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -16,8 +18,9 @@ const Login = () => {
 
       if (res.data.success) {
         setMessage(`Welcome, ${res.data.username}!`);
+        navigate("/dashboard");
       } else {
-        setMessage("Invalid Country ID or Password");
+        alert("Invalid credentials!");
       }
     } catch (error) {
       console.error("Login Error:", error);
